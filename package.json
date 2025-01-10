@@ -1,0 +1,30 @@
+{
+  "name": "Browser",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cliqz/adblocker-playwright": "^1.27.11",
+    "@extra/proxy-router": "^3.1.6",
+    "axios": "^1.7.2",
+    "fingerprint-injector": "^2.1.52",
+    "gologin": "^2.0.29",
+    "https-proxy-agent": "^7.0.6",
+    "moment-timezone": "^0.5.45",
+    "playwright": "^1.45.0",
+    "playwright-afp": "^0.0.3",
+    "puppeteer": "^22.12.1",
+    "puppeteer-core": "^22.12.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "request-promise": "^4.2.6",
+    "url": "^0.11.3"
+  }
+}
