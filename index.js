@@ -4,7 +4,7 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 20;
+const Threads = 50;
 //
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
