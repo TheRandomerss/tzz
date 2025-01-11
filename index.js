@@ -4,7 +4,7 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 70;
+const Threads = 50;
 //
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -59,7 +59,7 @@ const preferences = [
 
 const OpenBrowser = async (link) => {
   // const countries = ["us", "de", "fr", "uk", "se", "ca"];
-  const countries = ["se", "se", "se", "us"];
+  const countries = ["se","se","se","se","se", "pt","no", "us"];
 
   // Randomly pick a country
   const selectedCountry =
@@ -127,7 +127,7 @@ const OpenBrowser = async (link) => {
       await new Promise((resolve) => setTimeout(resolve, 200)); // Short delay for natural movement
     }
     const inputSelector =
-      "body > main > div.input-container > input[type=text]";
+      "body > main > form > button";
     await page.waitForSelector(inputSelector);
     await page.click(inputSelector);
 
@@ -173,7 +173,7 @@ const OpenBrowser = async (link) => {
 
 const tasksPoll = async () => {
   const tasks = Array.from({ length: Threads }).map(() => {
-    return OpenBrowser("https://tartines.be/"); // Adjust URL as needed
+    return OpenBrowser("https://djberniev.be/"); // Adjust URL as needed
   });
 
   await Promise.all(tasks);
