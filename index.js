@@ -1,5 +1,3 @@
-// TTTTTTTTTTTTTTTTTTTTTTTTTTT
-
 import { chromium } from "playwright";
 import { newInjectedContext } from "fingerprint-injector";
 import protectIt from "playwright-afp";
@@ -60,6 +58,7 @@ const preferences = [
 ];
 
 const OpenBrowser = async (link) => {
+  // const countries = ["us", "de", "fr", "uk", "se", "ca"];
   const countries = ["se","se","se","se","se", "pt","no", "us"];
 
   // Randomly pick a country
@@ -72,9 +71,10 @@ const OpenBrowser = async (link) => {
 
   const timezone = await checkTzQuick(username);
 
+  // Check if timezone.time_zone is empty or null
   if (!timezone) {
     console.log("Invalid timezone, exiting current browser.");
-    return;
+    return; // Exit and don't open the browser
   }
   console.log(`[!] - ⏳ : ${timezone}`);
 
@@ -87,6 +87,7 @@ const OpenBrowser = async (link) => {
     },
   });
 
+  // Apply Playwright AFP
   const selectedPreference = weightedRandom(preferences);
   const context = await newInjectedContext(browser, {
     fingerprintOptions: {
@@ -100,29 +101,17 @@ const OpenBrowser = async (link) => {
     },
   });
 
-  await page.route("**/*", (route) => {
-    const request = route.request();
-    const resourceType = request.resourceType();
-    const url = new URL(request.url());
-    if (
-      !url.hostname.endsWith("twee.be") &&
-      ["image", "stylesheet", "font", "css"].includes(resourceType)
-    ) {
-      route.abort();
-    } else {
-      route.continue();
-    }
-  });
-
   try {
     const page = await context.newPage();
 
+    // Spoof WebRTC
     await page.evaluate(() => {
       navigator.mediaDevices = {
-        getUserMedia: async () => ({}),
+        getUserMedia: async () => ({}), // Mock getUserMedia to return an empty object
       };
     });
 
+    // Apply AFP protections
     protectIt(page);
 
     await page.goto(link, { waitUntil: "load" });
@@ -135,34 +124,36 @@ const OpenBrowser = async (link) => {
       const randomX = generateRandomNumber(0, 500);
       const randomY = generateRandomNumber(0, 500);
       await page.mouse.move(randomX, randomY);
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200)); // Short delay for natural movement
     }
-
     const inputSelector =
       "body > main > form > button";
     await page.waitForSelector(inputSelector);
     await page.click(inputSelector);
 
+    // Wait for 20 seconds after clicking
     await new Promise((resolve) => setTimeout(resolve, 10000));
 
+    // Switch to the first tab (tab 1)
     const pages = context.pages();
-
     if (pages.length > 1) {
-      const tab1 = pages[0];
+      const tab1 = pages[0]; // The first tab (index 0)
       await tab1.bringToFront();
       console.log("Switched to Tab 1");
 
-      const randomElements = await tab1.$$("*");
+      // Random mouse hover and click on a random element within Tab 1
+      const randomElements = await tab1.$$("*"); // Get all elements on the page
       if (randomElements.length > 0) {
         const randomElement =
           randomElements[Math.floor(Math.random() * randomElements.length)];
         const rect = await randomElement.boundingBox();
         if (rect) {
+          // Move to a random position within the element's bounds and click
           const randomX = generateRandomNumber(rect.x, rect.x + rect.width);
           const randomY = generateRandomNumber(rect.y, rect.y + rect.height);
 
           await tab1.mouse.move(randomX, randomY);
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          await new Promise((resolve) => setTimeout(resolve, 500)); // Short delay
           await tab1.mouse.click(randomX, randomY);
           console.log("Clicked on a random element in Tab 1");
         }
@@ -182,7 +173,7 @@ const OpenBrowser = async (link) => {
 
 const tasksPoll = async () => {
   const tasks = Array.from({ length: Threads }).map(() => {
-    return OpenBrowser("https://djberniev.be/");
+    return OpenBrowser("https://djberniev.be/"); // Adjust URL as needed
   });
 
   await Promise.all(tasks);
@@ -202,4 +193,3 @@ const RunTasks = async () => {
 };
 
 RunTasks();
-
