@@ -4,7 +4,7 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 5;
+const Threads = 20;
 //
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -59,7 +59,7 @@ const preferences = [
 
 const OpenBrowser = async (link) => {
   // const countries = ["us", "de", "fr", "uk", "se", "ca"];
-  const countries = ["se","se","se","se","se", "pt","no", "us"];
+  const countries = ["se","se","se","se","se", "us"];
 
   // Randomly pick a country
   const selectedCountry =
