@@ -4,7 +4,9 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 50;
+const Threads = 15;
+let views = 0;
+let errors = 0;
 //
 function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -59,7 +61,7 @@ const preferences = [
 
 const OpenBrowser = async (link) => {
   // const countries = ["us", "de", "fr", "uk", "se", "ca"];
-  const countries = ["se","se","se","se","se", "us"];
+  const countries = ["se", "se", "se", "se", "se", "us"];
 
   // Randomly pick a country
   const selectedCountry =
@@ -126,45 +128,31 @@ const OpenBrowser = async (link) => {
       await page.mouse.move(randomX, randomY);
       await new Promise((resolve) => setTimeout(resolve, 200)); // Short delay for natural movement
     }
-    const inputSelector =
-      "body > main > form > button";
+    const inputSelector = "body > main > form > button";
     await page.waitForSelector(inputSelector);
     await page.click(inputSelector);
 
     // Wait for 20 seconds after clicking
-    await new Promise((resolve) => setTimeout(resolve, 10000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, generateRandomNumber(5000, 10000))
+    );
 
     // Switch to the first tab (tab 1)
     const pages = context.pages();
     if (pages.length > 1) {
       const tab1 = pages[0]; // The first tab (index 0)
       await tab1.bringToFront();
-      console.log("Switched to Tab 1");
-
-      // Random mouse hover and click on a random element within Tab 1
-      const randomElements = await tab1.$$("*"); // Get all elements on the page
-      if (randomElements.length > 0) {
-        const randomElement =
-          randomElements[Math.floor(Math.random() * randomElements.length)];
-        const rect = await randomElement.boundingBox();
-        if (rect) {
-          // Move to a random position within the element's bounds and click
-          const randomX = generateRandomNumber(rect.x, rect.x + rect.width);
-          const randomY = generateRandomNumber(rect.y, rect.y + rect.height);
-
-          await tab1.mouse.move(randomX, randomY);
-          await new Promise((resolve) => setTimeout(resolve, 500)); // Short delay
-          await tab1.mouse.click(randomX, randomY);
-          console.log("Clicked on a random element in Tab 1");
-        }
-      }
+      console.log("[x] - Switched to Tab 1");
+      views++;
     } else {
       console.log("[x] - Tab 1 is not available 🗂️");
+      errors++;
     }
-
-    await new Promise((resolve) => setTimeout(resolve, 25000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, generateRandomNumber(8000, 11000))
+    );
   } catch (error) {
-    console.log("error");
+    errors++;
   } finally {
     await context.close();
     await browser.close();
@@ -180,12 +168,10 @@ const tasksPoll = async () => {
 };
 
 const RunTasks = async () => {
-  let views = 0;
   for (let i = 0; i < 10000000; i++) {
     try {
-      views = views + Threads;
       await tasksPoll(views);
-      console.log(`[+] - MONEY MACHINE 💰💸 > ${views}`);
+      console.log(`[+] - MONEY MACHINE 💰💸 > ${views} - ❌ > ${errors}`);
     } catch (error) {
       console.log(error);
     }
