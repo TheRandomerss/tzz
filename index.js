@@ -106,6 +106,15 @@ const OpenBrowser = async (link) => {
   try {
     const page = await context.newPage();
 
+    await page.route("**/*", (route) => {
+      const request = route.request();
+      const resourceType = request.resourceType();
+      if (["image", "stylesheet", "font"].includes(resourceType)) {
+        route.abort();
+      } else {
+        route.continue();
+      }
+    });
     // Spoof WebRTC
     await page.evaluate(() => {
       navigator.mediaDevices = {
