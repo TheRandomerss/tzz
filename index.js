@@ -4,7 +4,7 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 15;
+const Threads = 5;
 let views = 0;
 let errors = 0;
 //
