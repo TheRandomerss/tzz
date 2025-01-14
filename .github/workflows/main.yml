@@ -24,6 +24,7 @@ jobs:
       run: |
         npm install
         npx playwright install
+        npx i dotenv
 
     - name: Run the script
       run: |
