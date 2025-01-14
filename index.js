@@ -153,7 +153,7 @@ const OpenBrowser = async (link) => {
   console.log(`[!] - ⏳ : ${timezone}`);
 
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     proxy: {
       server: "148.113.161.141:5959",
       username,
