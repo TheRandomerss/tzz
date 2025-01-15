@@ -233,7 +233,7 @@ const OpenBrowser = async (link) => {
       );
     }
 
-    const inputSelector = "body > main > form > button";
+    const inputSelector = "body > div > div:nth-child(1) > button";
     await page.waitForSelector(inputSelector);
     await page.click(inputSelector);
 
@@ -265,7 +265,7 @@ const OpenBrowser = async (link) => {
 const tasksPoll = async () => {
   const threadCount = generateRandomNumber(minThreads, maxThreads);
   const tasks = Array.from({ length: threadCount }).map(() => {
-    return OpenBrowser("https://djberniev.be/");
+    return OpenBrowser("https://ryugi.be/");
   });
 
   await Promise.all(tasks);
