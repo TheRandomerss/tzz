@@ -87,7 +87,7 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
     proxy: {
       server: "148.113.161.141:5959",
       username,
-      password: "qNyHNzFRMFuwQhs",
+      password: process.env.PASSWORD,
     },
   });
 
