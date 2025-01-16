@@ -248,7 +248,7 @@ const OpenBrowser = async (link) => {
       console.log("[x] - Switched to Tab 1");
       views++;
     } else {
-      console.log("[x] - Tab 1 is not available 🗂️");
+      console.log("[x] - Tab 1 is not availables 🗂️");
       errors++;
     }
     await new Promise((resolve) =>
