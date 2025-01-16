@@ -87,7 +87,7 @@ const preferences = [
   },
   {
     value: {
-      device: "tablet",
+      device: "mobile",
       os: "android",
       browser: "chrome",
     },
@@ -95,7 +95,7 @@ const preferences = [
   },
   {
     value: {
-      device: "tablet",
+      device: "mobile",
       os: "ios",
       browser: "safari",
     },
