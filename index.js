@@ -81,13 +81,15 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
     return; // Exit and don't open the browser
   }
   console.log(`[!] - ⏳ : ${timezone}`);
-
+  
+const secretApiKey = process.env.PASSWORD;
+console.log(secretApiKey)
   const browser = await chromium.launch({
     headless: true,
     proxy: {
       server: "148.113.161.141:5959",
       username,
-      password: process.env.PASSWORD,
+      password: secretApiKey,
     },
   });
 
