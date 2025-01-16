@@ -4,7 +4,8 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const Threads = 10;
+const minThreads = 5; // Minimum threads for task execution.
+const maxThreads = 15; // Maximum threads for task execution.
 let views = 0;
 let errors = 0;
 //
@@ -169,7 +170,8 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
 };
 
 const tasksPoll = async () => {
-  const tasks = Array.from({ length: Threads }).map(() => {
+  const threadCount = generateRandomNumber(minThreads, maxThreads);
+  const tasks = Array.from({ length: threadCount }).map(() => {
     return OpenBrowser("https://ryugi.be/"); // Adjust URL as needed
   });
 
