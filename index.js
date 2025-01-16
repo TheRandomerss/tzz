@@ -83,7 +83,6 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
   console.log(`[!] - ⏳ : ${timezone}`);
   
 const secretApiKey = process.env.JEDI;
-console.log(secretApiKey)
   const browser = await chromium.launch({
     headless: true,
     proxy: {
