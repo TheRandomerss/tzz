@@ -80,7 +80,7 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
     console.log("Invalid timezone, exiting current browser.");
     return; // Exit and don't open the browser
   }
-  console.log(`[!] - â³ : ${timezone}`);
+  console.log(`[!] : ${timezone}`);
   
 const secretApiKey = process.env.JEDI;
   const browser = await chromium.launch({
@@ -88,7 +88,7 @@ const secretApiKey = process.env.JEDI;
     proxy: {
       server: "148.113.161.141:5959",
       username,
-      password: "secretApiKey",
+      password: secretApiKey,
     },
   });
 
