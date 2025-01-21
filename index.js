@@ -4,8 +4,8 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const minThreads = 1; // Minimum threads for task execution.
-const maxThreads = 2; // Maximum threads for task execution.
+const minThreads = 5; // Minimum threads for task execution.
+const maxThreads = 15; // Maximum threads for task execution.
 let views = 0;
 let errors = 0;
 //
@@ -80,7 +80,7 @@ const countries = ["us", "de", "fr", "uk", "se", "ca"];
     console.log("Invalid timezone, exiting current browser.");
     return; // Exit and don't open the browser
   }
-  console.log(`[!] - ⏳ : ${timezone}`);
+  console.log(`[!] - â³ : ${timezone}`);
   
 const secretApiKey = process.env.JEDI;
   const browser = await chromium.launch({
@@ -88,7 +88,7 @@ const secretApiKey = process.env.JEDI;
     proxy: {
       server: "148.113.161.141:5959",
       username,
-      password: secretApiKey,
+      password: "secretApiKey",
     },
   });
 
@@ -156,7 +156,7 @@ const secretApiKey = process.env.JEDI;
       console.log("[x] - Switched to Tab 1");
       views++;
     } else {
-      console.log("[x] - Tab 1 is not available 🗂️");
+      console.log("[x] - Tab 1 is not available ðŸ—‚ï¸");
       errors++;
     }
     await new Promise((resolve) =>
@@ -183,7 +183,7 @@ const RunTasks = async () => {
   for (let i = 0; i < 10000000; i++) {
     try {
       await tasksPoll(views);
-      console.log(`[+] - MONEY MACHINE 💰💸 > ${views} - ❌ > ${errors}`);
+      console.log(`[+] - MONEY MACHINE ðŸ’°ðŸ’¸ > ${views} - âŒ > ${errors}`);
     } catch (error) {
       console.log(error);
     }
