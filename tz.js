@@ -134,7 +134,7 @@ export const checkTzQuick = async (username) => {
 
   try {
     const response = await axios.get(
-      "https://worker-purple-wind-1de7.idrissimahdi2020.workers.dev/",
+      "https://white-water-a7d6.mahdiidrissi2022.workers.dev/",
       {
         httpsAgent: proxyAgent,
         timeout: 10000,
