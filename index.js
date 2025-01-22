@@ -4,8 +4,8 @@ import protectIt from "playwright-afp";
 import ProxyRouter from "@extra/proxy-router";
 import { checkTz, checkTzQuick } from "./tz.js";
 // CONFIG
-const minThreads = 5; // Minimum threads for task execution.
-const maxThreads = 15; // Maximum threads for task execution.
+const minThreads = 3; // Minimum threads for task execution.
+const maxThreads = 7; // Maximum threads for task execution.
 let views = 0;
 let errors = 0;
 //
